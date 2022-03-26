@@ -9,6 +9,7 @@ import Tab from "@mui/material/Tab";
 import { Typography } from "@mui/material";
 import Nav from "../components/Nav";
 import {profiles} from "../lib/get-profile-typed-data";
+import Profile from "../components/Profile";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -41,7 +42,7 @@ const Home = () => {
     const router = useRouter();
     const [profileId, setProfileId] = useState("");
     const [loading, setLoading] = useState("not-loaded");
-    const [profile, setProfile] = useState({});
+    const [profileData, setProfileData] = useState({});
     const {authenticate, setUserData, user, isAuthenticated, logout} = useMoralis();
     const [value, setValue] = useState(0);
 
@@ -53,9 +54,15 @@ const Home = () => {
                 let profileRequest = {
                     handles: handles
                 }
-                const profileData = await profiles(profileRequest);
+                const profileDataRes = await profiles(profileRequest);
                 debugger;
-                setProfile(profileData);
+                if (profileDataRes && profileDataRes.profiles && profileDataRes.profiles.items
+                    && profileDataRes.profiles.items.length > 0) {
+                   const profileData =  profileDataRes.profiles.items[0];
+                   if (profileData) {
+                       setProfileData(profileData);
+                   }
+                }
                 setLoading("loaded");
             }
         })();
@@ -79,14 +86,15 @@ const Home = () => {
                 {loading == "not-loaded" ? (
                     <Loader loaderMessage="Processing..." />
                 ) : (
-                    profile &&
+                    profileData &&
                     loading === "loaded" && (
                         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                            <Tabs value={value} onChange={handleChange} aria-label="My Team">
+                            <Tabs value={value} onChange={handleChange} aria-label="Home">
                                 <Tab label="Profile" {...a11yProps(0)} />
-                                <Tab label="Events" {...a11yProps(1)} />
+                                <Tab label="Activities" {...a11yProps(1)} />
                             </Tabs>
                             <TabPanel value={value} index={0}>
+                                <Profile profileData={profileData} />
                             </TabPanel>
                             <TabPanel value={value} index={1}>
                             </TabPanel>
