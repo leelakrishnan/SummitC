@@ -45,6 +45,7 @@ const Home = () => {
     const [loading, setLoading] = useState("not-loaded");
     const [profile, setProfile] = useState({});
     const {authenticate, setUserData, user, isAuthenticated, logout} = useMoralis();
+    const [value, setValue] = useState(0);
 
     useEffect(() => {
         (async () => {
@@ -62,15 +63,38 @@ const Home = () => {
         })();
     }, [user]);
 
+
+    const handleChange = (event: any, newValue: any) => {
+        setValue(newValue);
+    };
+
     // @ts-ignore
     return (
         <>
             <Head>
-                <title>Fly TV</title>
+                <title>Summit C</title>
                 <meta name="description" content="Home for hackathon" />
             </Head>
             <main>
                 <Nav />
+
+                {loading == "not-loaded" ? (
+                    <Loader loaderMessage="Processing..." />
+                ) : (
+                    profile &&
+                    loading === "loaded" && (
+                        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                            <Tabs value={value} onChange={handleChange} aria-label="My Team">
+                                <Tab label="Team Info" {...a11yProps(0)} />
+                                <Tab label="Github" {...a11yProps(1)} />
+                            </Tabs>
+                            <TabPanel value={value} index={0}>
+                            </TabPanel>
+                            <TabPanel value={value} index={1}>
+                            </TabPanel>
+                        </Box>
+                    )
+                )}
                 {/* <Footer /> */}
             </main>
         </>
