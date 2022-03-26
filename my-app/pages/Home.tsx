@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { useMoralis } from "react-moralis";
-import Moralis from "moralis";
 import Loader from "../components/Loader";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
@@ -10,7 +9,6 @@ import Tab from "@mui/material/Tab";
 import { Typography } from "@mui/material";
 import Nav from "../components/Nav";
 import {profiles} from "../lib/get-profile-typed-data";
-
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -85,8 +83,8 @@ const Home = () => {
                     loading === "loaded" && (
                         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                             <Tabs value={value} onChange={handleChange} aria-label="My Team">
-                                <Tab label="Team Info" {...a11yProps(0)} />
-                                <Tab label="Github" {...a11yProps(1)} />
+                                <Tab label="Profile" {...a11yProps(0)} />
+                                <Tab label="Events" {...a11yProps(1)} />
                             </Tabs>
                             <TabPanel value={value} index={0}>
                             </TabPanel>
