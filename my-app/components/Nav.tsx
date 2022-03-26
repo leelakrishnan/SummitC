@@ -104,6 +104,9 @@ const Nav = () => {
             <Link href="/Home" passHref>
                 <a className={styles.logo}>Home</a>
             </Link>
+            <Link href="/Explore" passHref>
+                <a className={styles.logo}>Explore</a>
+            </Link>
             <div className={styles.rightNav}>
                 {loadingState == "loaded" && avatarOpen && (
                     <>
