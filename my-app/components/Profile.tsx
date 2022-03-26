@@ -90,7 +90,7 @@ const Profile = ({ profileData }: Props) => {
   }, [user])
 
   function mapProfileToFormValues(profileData: any) {
-    debugger;
+    
     const profileId = profileData?.id;
     const profileName = profileData?.handle;
     const name = profileData?.name;
@@ -110,12 +110,12 @@ const Profile = ({ profileData }: Props) => {
   }
 
   async function mapMoralisUserInfoToFormValues(user: any) {
-    debugger;
+    
     const cid = user?.get("cid");
     if (cid) {
       let url = ipfs_url_from_hash(cid);
       let res = await axios.get(url);
-      debugger;
+      
       if (res && res.data) {
         const company = res.data.company;
         const university = res.data.university;
@@ -183,7 +183,7 @@ const Profile = ({ profileData }: Props) => {
       twitterUrl: formValues.twitterUrl === "" ? null : formValues.twitterUrl,
       coverPicture: null,
     });
-    debugger;
+    
     await updateAdditionalProfileData();
     toast.success(" Profile Saved!", {
       position: toast.POSITION.BOTTOM_CENTER,
@@ -218,7 +218,7 @@ const Profile = ({ profileData }: Props) => {
       });
       saveDataInMoralis(path);
     } finally {
-      debugger;
+      
     }
   }
 
