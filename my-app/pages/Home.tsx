@@ -11,6 +11,7 @@ import Nav from "../components/Nav";
 import {profiles} from "../lib/get-profile-typed-data";
 import Profile from "../components/Profile";
 import CreateEvent from "../components/CreateEvent";
+import CreatePost from "../components/CreatePost";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -56,7 +57,7 @@ const Home = () => {
                     handles: handles
                 }
                 const profileDataRes = await profiles(profileRequest);
-                debugger;
+                
                 if (profileDataRes && profileDataRes.profiles && profileDataRes.profiles.items
                     && profileDataRes.profiles.items.length > 0) {
                    const profileData =  profileDataRes.profiles.items[0];
@@ -83,7 +84,6 @@ const Home = () => {
             </Head>
             <main>
                 <Nav />
-
                 {loading == "not-loaded" ? (
                     <Loader loaderMessage="Processing..." />
                 ) : (
@@ -93,12 +93,16 @@ const Home = () => {
                             <Tabs value={value} onChange={handleChange} aria-label="Home">
                                 <Tab label="Profile" {...a11yProps(0)} />
                                 <Tab label="Create Event" {...a11yProps(1)} />
+                                <Tab label="Create Post" {...a11yProps(2)} />
                             </Tabs>
                             <TabPanel value={value} index={0}>
                                 <Profile profileData={profileData} />
                             </TabPanel>
                             <TabPanel value={value} index={1}>
                                 <CreateEvent profileData={profileData} />
+                            </TabPanel>
+                            <TabPanel value={value} index={2}>
+                                <CreatePost profileData={profileData} />
                             </TabPanel>
                         </Box>
                     )

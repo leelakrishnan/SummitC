@@ -11,17 +11,15 @@ type Props = {
   profileData: any;
 };
 
-const CreateEvent = ({ profileData }: Props) => {
+const CreatePost = ({ profileData }: Props) => {
+  const router = useRouter();
   const [profileId, setProfileId] = useState("");
   const [formValues, setFormValues] = useState({
-    eventName: "",
-    eventDescription: "",
-    eventLink: "",
-    eventThumbnail: ""
+    post: ""
   });
   const [formErrors, setFormErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const { user, setUserData, userError, isUserUpdating, refetchUserData } =
+  const { user} =
     useMoralis();
   const postTitle = {
     textAlign: "center",
@@ -41,10 +39,7 @@ const CreateEvent = ({ profileData }: Props) => {
     (async () => {
       setLoading(true);
       setProfileId(profileData.id);
-      formValues.eventName = "";
-      formValues.eventDescription = "";
-      formValues.eventLink = "";
-      formValues.eventThumbnail = "";
+      formValues.post = "";
       setLoading(false);
     })();
   }, [user])
@@ -57,17 +52,8 @@ const CreateEvent = ({ profileData }: Props) => {
   const validateError = () => {
     const errors = {
     };
-    if (formValues.eventName === "") {
-      errors.eventName = "Event Name is required";
-    }
-    if (formValues.eventDescription === "") {
-      errors.eventDescription = "Event Description is required";
-    }
-    if (formValues.eventLink === "") {
-      errors.eventLink = "Event Link is required";
-    }
-    if (formValues.eventThumbnail === "") {
-      errors.eventThumbnail = "Event thumbnail is required";
+    if (formValues.post === "") {
+      errors.post = "Post is required";
     }
     return errors;
   };
@@ -84,24 +70,21 @@ const CreateEvent = ({ profileData }: Props) => {
     validateError();
 
     setLoading(true);
-    await createEvent();
-    toast.success(" Event Created Saved!", {
+    await createPost();
+    toast.success(" Post Created Saved!", {
       position: toast.POSITION.BOTTOM_CENTER,
     });
     setLoading(false);
   }
 
-  async function uploadEventDataToIpfs() {
+  async function uploadPostDataToIpfs() {
     // @ts-ignore
     const {path} = await uploadIpfs({
       version: '1.0.0',
       metadata_id: uuidv4(),
-      eventName: formValues.eventName === "" ? undefined : formValues.eventName,
-      eventDescription: formValues.eventDescription === "" ? undefined : formValues.eventDescription,
-      eventLink: formValues.eventLink === "" ? undefined : formValues.eventLink,
-      eventThumbnail: formValues.eventThumbnail === "" ? undefined : formValues.eventThumbnail,
+      post: formValues.post === "" ? undefined : formValues.post,
       external_url: null,
-      name: `Event data by @${profileId}`,
+      name: `Post data by @${profileId}`,
       attributes: [],
       appId: 'SummitCenter'
     }).finally();
@@ -122,10 +105,9 @@ const CreateEvent = ({ profileData }: Props) => {
     return path;
   }
 
-  const createEvent = async () => {
-    const path = await uploadEventDataToIpfs();
-    const eventIPFS = "***Event" + path;
-    const cid = await uploadPostToIpfs(eventIPFS);
+  const createPost = async () => {
+    const path = await uploadPostDataToIpfs();
+    const cid = await uploadPostToIpfs(path);
     debugger;
     const createPostRequest = {
       profileId,
@@ -140,65 +122,25 @@ const CreateEvent = ({ profileData }: Props) => {
 
     const result = await createPostTypedData(createPostRequest);
     console.log('create post: createPostTypedData', result);
-    debugger;
   }
 
   // @ts-ignore
   return (
     <>
-      <p style={postTitle}>Create Event</p>
+      <p style={postTitle}>Create Post</p>
       <div className={styles.container}>
         <form className={styles.form}>
           <div className={styles.formGroups}>
-            {formErrors.eventName && (
-                <p style={formErrorStyle}>{formErrors.eventName}</p>
+            {formErrors.post && (
+                <p style={formErrorStyle}>{formErrors.post}</p>
             )}
-            <label htmlFor="name">Event Name</label>
+            <label htmlFor="name">Post</label>
             <input
                 type="text"
-                value={formValues.eventName}
+                value={formValues.post}
                 name={Object.keys(formValues)[0]}
                 onChange={handleOnChange}
-                placeholder="Event Name"
-            />
-          </div>
-          <div className={styles.formGroups}>
-            {formErrors.eventDescription && (
-                <p style={formErrorStyle}>{formErrors.eventDescription}</p>
-            )}
-            <label htmlFor="name">Event Description</label>
-            <input
-                type="text"
-                value={formValues.eventDescription}
-                name={Object.keys(formValues)[1]}
-                onChange={handleOnChange}
-                placeholder="Event Description"
-            />
-          </div>
-          <div className={styles.formGroups}>
-            {formErrors.eventLink && (
-                <p style={formErrorStyle}>{formErrors.eventLink}</p>
-            )}
-            <label htmlFor="name">Event Link</label>
-            <input
-                type="text"
-                value={formValues.eventLink}
-                name={Object.keys(formValues)[2]}
-                onChange={handleOnChange}
-                placeholder="Enter event link"
-            />
-          </div>
-          <div className={styles.formGroups}>
-            {formErrors.eventThumbnail && (
-                <p style={formErrorStyle}>{formErrors.eventThumbnail}</p>
-            )}
-            <label htmlFor="name">Event Thumbnail</label>
-            <input
-                type="text"
-                value={formValues.eventThumbnail}
-                name={Object.keys(formValues)[3]}
-                onChange={handleOnChange}
-                placeholder="Enter Event Thumbnail"
+                placeholder="Post"
             />
           </div>
           {!loading ? (
@@ -217,4 +159,4 @@ const CreateEvent = ({ profileData }: Props) => {
     </>
   );
 };
-export default CreateEvent;
+export default CreatePost;
