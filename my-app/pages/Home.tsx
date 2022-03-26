@@ -10,6 +10,7 @@ import { Typography } from "@mui/material";
 import Nav from "../components/Nav";
 import {profiles} from "../lib/get-profile-typed-data";
 import Profile from "../components/Profile";
+import CreateEvent from "../components/CreateEvent";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -91,12 +92,13 @@ const Home = () => {
                         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                             <Tabs value={value} onChange={handleChange} aria-label="Home">
                                 <Tab label="Profile" {...a11yProps(0)} />
-                                <Tab label="Activities" {...a11yProps(1)} />
+                                <Tab label="Create Event" {...a11yProps(1)} />
                             </Tabs>
                             <TabPanel value={value} index={0}>
                                 <Profile profileData={profileData} />
                             </TabPanel>
                             <TabPanel value={value} index={1}>
+                                <CreateEvent profileData={profileData} />
                             </TabPanel>
                         </Box>
                     )
