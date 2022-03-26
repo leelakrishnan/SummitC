@@ -1,116 +1,647 @@
-.container {
-  padding: 0 2rem;
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500&display=swap");
+
+.logo {
+  font-size: 1.5rem;
 }
 
-.main {
-  min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.rightNav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Press Start 2P";
+}
+
+.rightNav a {
+  margin-left: 1rem;
+}
+
+.connect {
+  font-family: "Press Start 2P";
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--color-theme-white);
+  width: 12.5rem;
+  height: 2.5rem;
+  border-radius: 50px;
+  background-color: blue;
+  margin-left: 1.5rem;
+}
+
+.connect > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.connect > span > h5 {
+  margin-left: 0.5rem;
+}
+
+.logout {
+  font-family: "Press Start 2P";
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--color-theme-white);
+  width: 12.5rem;
+  border-radius: 50px;
+  height: 2.2rem;
+  background-color: blue;
+  margin-left: 1.5rem;
+  border-radius: 50px;
+}
+
+.logout:hover span {
+  display: none;
+}
+
+.logout:hover:before {
+  content: "Logout" !important;
+  
+}
+
+.logout:hover {
+  background-color: red;
+}
+
+.address {
+  font-family: "Inconsolata";
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--color-theme-white);
+  width: 12.5rem;
+  height: 2.2rem;
+  border-radius: 50px;
+  background-color: blue;
+  margin-left: 1.5rem;
+}
+/* --------------- End of Navbar --------------- */
+
+.hero {
+  max-width: 1500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: calc(100vh - 8rem);
+  font-family: "Press Start 2P";
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  text-transform: uppercase;
+  letter-spacing: 0.5rem;
+  font-size: 2.5rem;
+}
+.teamjoin {
+  font-family: "Press Start 2P";
+  cursor: pointer;
+  padding: 10px 8px;
+  padding-top: 15px;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--color-theme-white);
+  /* width: 12.5rem;
+  height: 2.2rem; */
+  background: rgb(180, 58, 58);
+  background: linear-gradient(
+          0deg,
+          rgba(253, 29, 29, 100) 70%,
+          rgba(180, 58, 58, 100) 85%,
+          rgba(255, 255, 255, 100) 100%
+  );
+  min-height: 5em;
+  margin: 0 1em 0 1em;
+}
+.join {
+  font-family: "Press Start 2P";
+  cursor: pointer;
+  padding: 10px 8px;
+  padding-top: 15px;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--color-theme-white);
+  /* width: 12.5rem;
+  height: 2.2rem; */
+  background: rgb(180, 58, 58);
+  background: linear-gradient(
+    0deg,
+    rgba(253, 29, 29, 100) 70%,
+    rgba(180, 58, 58, 100) 85%,
+    rgba(255, 255, 255, 100) 100%
+  );
+}
+
+.about {
+  margin-top: 1.5rem;
+  color: var(--color-theme-red);
+  font-size: 1.1rem;
+  font-family: "Inconsolata", monospace;
+  text-transform: none;
+  letter-spacing: 2px;
+  width: 70%;
+  text-align: center;
+}
+
+.error {
+  margin-top: 1.5rem;
+  color: var(--color-theme-red);
+  font-size: 0.9rem;
+  font-family: "Inconsolata", monospace;
+  text-transform: none;
+  letter-spacing: 2px;
+}
+
+.error > p {
+  text-align: center;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+}
+
+/* --------------- End of Tribes Main Page --------------- */
+
+/* ------------------- All Tribes Page ------------------- */
+.container {
+  height: 85%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: "Press Start 2P";
 }
 
-.footer {
+.container > h1 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+}
+
+.container > a {
+  margin-top: 8rem;
+  font-size: 0.9rem;
+  color: var(--color-theme-red);
+}
+
+.allTribes {
   display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
-.footer a {
+.allTribes > div {
+  overflow-x: hidden;
+  margin-top: 1.5rem;
+}
+
+.cards {
+  cursor: pointer;
+  width: 200px;
+  height: 290px;
+  overflow: hidden;
+}
+
+.cards:hover {
+  transform: scale(1.03);
+  transition: transform 0.2s;
+  overflow: hidden;
+}
+
+.tribe-name {
+  cursor: pointer;
+  width: 200px;
+  height: 290px;
+  border: 2px solid var(--color-theme-white);
+  border-radius: 2rem;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(1px 5px 3px indigo);
+  margin-right: 2rem;
+}
+
+.tribe-name:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s;
+}
+
+.tribe-name > h2 {
+  font-size: 1rem;
+}
+/* --------------- End of All Tribes Page ---------------- */
+
+/* ------------------- My Tribe Page ------------------- */
+.container2 {
+  height: 80%;
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-grow: 1;
+  font-family: "Press Start 2P";
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
+.container3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+  font-family: "Press Start 2P";
 }
 
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
+.tribe {
+  height: auto;
+  margin-top: 2.5rem;
+  margin-right: 2rem !important;
 }
 
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
+.tribeCard {
+  margin: 2.5rem 4rem 0 0;
+  width: 200px;
+  height: 300px;
+  border: 2px solid var(--color-theme-white);
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(1px 5px 3px indigo);
 }
 
-.title,
+.text {
+  width: 50%;
+  font-size: 1.3rem;
+}
 .description {
-  text-align: center;
+  color: var(--color-theme-white);
+  font-size: 1.2rem;
 }
 
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-}
-
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  max-width: 300px;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
+@media screen and (max-width: 1200px) {
+  .tribe {
+    width: 50rem;
   }
+}
+
+@media screen and (max-width: 900px) {
+  .tribe {
+    width: 18rem;
+    margin: 0 auto;
+  }
+
+  .container3 {
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container2 {
+    margin: auto;
+  }
+
+  .tribe {
+    width: 12rem;
+    margin: 0 auto;
+  }
+
+  .text {
+    font-size: 1rem;
+  }
+  .description {
+    color: var(--color-theme-white);
+    font-size: 1rem;
+  }
+}
+/* --------------- End of My Tribe Page ---------------- */
+
+/* ------------------- Footer -------------------- */
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: var(--color-theme-red) dashed 2px;
+  width: 100vw;
+  height: 65px;
+}
+
+.info > p {
+  margin: 0 0 0.5rem;
+}
+
+.info > a {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--color-theme-white);
+}
+
+.switch {
+  font-family: "Press Start 2P";
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  color: var(--color-theme-white);
+  width: 12rem;
+  height: 1.5rem;
+  background-color: red;
+}
+
+/* --------------- End of Footer ---------------- */
+
+/* ------------------- Spinner ------------------- */
+.loader {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.loader div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 18px;
+  background: #fff;
+  animation: loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.loader div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.loader div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.loader div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+@keyframes loader {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%,
+  100% {
+    top: 24px;
+    height: 32px;
+  }
+}
+
+/* --------------- End of Spinner ---------------- */
+
+/* ------------------- Modal Wallet ------------------- */
+
+.modal {
+  background-color: rgba(41, 41, 41, 0.8);
+  display: block;
+  position: fixed;
+  z-index: 1;
+  padding: 35vh 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.modalContent {
+  margin: auto;
+  padding: 1rem;
+  width: 400px;
+  background-color: rgb(4, 1, 1);
+}
+@media screen and (max-width: 600px) {
+  .modal {
+    width: 500px;
+  }
+
+  .modalContent {
+    margin: auto;
+    padding: 0.5rem;
+    width: 500px;
+    max-width: fit-content;
+  }
+}
+
+.closeModal {
+  background-color: transparent;
+  border: none;
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: white;
+}
+
+.closeModal:hover {
+  color: #ff5a60;
+  cursor: pointer;
+}
+
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0 0.5rem;
+}
+
+.modalContainer > button {
+  margin-bottom: 0.5rem;
+}
+
+/* --------------- End of Modal Wallet ---------------- */
+
+/* ------------------- Battle Tribe ------------------- */
+.battleRoyal {
+  max-width: 1500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 8rem);
+  font-family: "Press Start 2P";
+}
+
+.battleBtn {
+  font-family: "Press Start 2P";
+  cursor: pointer;
+  margin: -3rem auto 3rem;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  color: var(--color-theme-white);
+  width: 12.5rem;
+  height: 2.2rem;
+  background: rgb(180, 58, 58);
+  background: linear-gradient(
+    0deg,
+    rgba(253, 29, 29, 100) 70%,
+    rgba(180, 58, 58, 100) 85%,
+    rgba(255, 255, 255, 100) 100%
+  );
+}
+.battleStage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 4rem 3rem;
+}
+
+.displayNone {
+  display: none;
+}
+
+.winner {
+  animation: zoominoutsinglefeatured 5s forwards infinite;
+  overflow: hidden;
+}
+
+.loser {
+  animation: fadeOut 5s;
+  opacity: 0;
+}
+
+.container4 {
+  height: 270;
+  width: 350;
+  padding: 0 1rem 3rem;
+}
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes zoominoutsinglefeatured {
+  0% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.2, 1.2);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  color: white !important;
+}
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: red !important;
+}
+
+.MuiButtonBase-root {
+  color: white !important;
+}
+.MuiButtonBase-root.Mui-selected {
+  color: red !important;
+}
+
+.rmsc.dropdown-container {
+  background-color: black !important;
+}
+
+.meme {
+  position: relative;
+}
+
+.meme--image {
+  max-width: 100%;
+  border-radius: 3px;
+}
+
+.meme--text {
+  position: absolute;
+  width: 80%;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 15px 0;
+  padding: 0 5px;
+  font-family: impact, sans-serif;
+  font-size: 2em;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000,
+    -2px 2px 0 #000, 0 2px 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 0 0 #000,
+    2px 2px 5px #000;
+}
+
+.bottom {
+  bottom: 0;
+}
+
+.top {
+  top: 0;
+}
+
+.MuiButtonBase-root {
+  padding: 12px 16px !important;
+  padding-top: 12px !important;
+  padding-right: 16px !important;
+  padding-bottom: 12px !important;
+  padding-left: 16px !important;
+}
+
+.MuiIconButton-label {
+  display: block;
+}
+
+.teamGroups {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+}
+
+
+.pagetooltip {
+  position:fixed;bottom:2em;right:1em;
+}
+
+.teamFlex{
+  flex-direction: column !important;
+  display: flex !important;
 }

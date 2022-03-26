@@ -1,4 +1,231 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500&display=swap");
 
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+:root {
+  --color-theme-black: #0e0d0d;
+  --color-theme-white: #f0f0f0;
+  --color-theme-red: #ffa3a3;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  /* overflow-y: hidden; */
+}
+
+html,
+body {
+  font-family: "Inconsolata";
+  background-color: var(--color-theme-black);
+  color: var(--color-theme-white);
+}
+
+/* ------------------- Tribes Main Page ------------------- */
+main {
+  margin: auto;
+  max-width: 1900px;
+  height: 100vh;
+  padding: 2rem 2rem;
+}
+
+/* ------------------- Navbar ------------------- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  max-width: 1500px;
+  font-family: "Press Start 2P";
+}
+
+nav > a {
+  font-size: 0.9rem;
+}
+
+a {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--color-theme-white);
+
+  padding-top: 0.2rem;
+}
+
+p {
+  margin-top: 1.5rem;
+  color: var(--color-theme-red);
+  font-family: "Inconsolata", monospace;
+  text-transform: none;
+  letter-spacing: 2px;
+}
+
+/* ------------------- Setup Page ------------------- */
+input {
+  font-family: "Inconsolata", monospace;
+  border: 0.5px dashed var(--color-theme-white);
+  background-color: transparent;
+  width: 30%;
+  margin: 0.4rem 0;
+  padding: 0.6rem 0.4rem;
+  color: var(--color-theme-white);
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border: 0.5px dashed var(--color-theme-red);
+}
+
+/* --------------- End of Setup Page ---------------- */
+
+footer {
+  margin-top: -2rem;
+  display: flex;
+  flex-direction: row-reverse;
+  font-family: "Inconsolata", monospace;
+  height: 300px;
+  padding: 0 1rem;
+}
+
+/* ------------------- Spinner ------------------- */
+.loader {
+  display: block;
+  border: 2px solid #f3f3f3; /* Light grey */
+  border-top: 2px solid rgba(1, 8, 235, 1); /* Blue */
+  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+  margin-bottom: 10px;
+}
+
+.loader-center {
+  max-width: 20%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* web3auth modal header text on login */
+.w3a-modal__header {
+  color: #0e0d0d;
+}
+
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  color: white !important;
+}
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: red !important;
+}
+.rmsc.dropdown-container {
+  background-color: black !important;
+}
+
+.dropdown-container span{
+  color: var(--color-theme-white) ;
+}
+
+.dropdown-container li:hover span{
+  color: var(--color-theme-black) ;
+}
+
+.dropdown-content .panel-content {
+  background-color: black !important;
+}
+
+.meme {
+  position: relative;
+}
+
+.meme--image {
+  max-width: 100%;
+  border-radius: 3px;
+}
+
+.meme--text {
+  position: absolute;
+  width: 80%;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 15px 0;
+  padding: 0 5px;
+  font-family: impact, sans-serif;
+  font-size: 2em;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000,
+    -2px 2px 0 #000, 0 2px 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 0 0 #000,
+    2px 2px 5px #000;
+}
+
+.bottom {
+  bottom: 0;
+}
+
+.top {
+  top: 0;
+}
+
+.MuiButtonBase-root {
+  padding: 12px 16px !important;
+  padding-top: 12px !important;
+  padding-right: 16px !important;
+  padding-bottom: 12px !important;
+  padding-left: 16px !important;
+}
+
+.MuiIconButton-label {
+  display: block;
+}
+
+.teamGroups {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+}
+
+.descriptions {
+  padding-top: 30px;
+  font-family: impact, sans-serif;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000,
+    -2px 2px 0 #000, 0 2px 0 #000, 2px 0 0 #000, 0 -2px 0 #000, -2px 0 0 #000,
+    2px 2px 5px #000;
+}
+
+
+.MuiButtonBase-root {
+  color: white !important;
+}
+.MuiButtonBase-root.Mui-selected {
+  color: red !important;
+}
+
+.pagetooltip {
+position:fixed;bottom:2em;right:1em;
+}
+.extraClass {
+  font-size: 20px !important;
+  pointer-events: auto !important;
+
+:hover {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+}
