@@ -101,7 +101,7 @@ const Nav = () => {
     // @ts-ignore
     return (
         <nav>
-            <Link href="/MyProfile" passHref>
+            <Link href="/Home" passHref>
                 <a className={styles.logo}>Home</a>
             </Link>
             <Link href="/CreateEvent" passHref>

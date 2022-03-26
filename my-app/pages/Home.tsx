@@ -9,6 +9,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Typography } from "@mui/material";
 import Nav from "../components/Nav";
+import {profiles} from "../lib/get-profile-typed-data";
 
 
 function TabPanel(props) {
@@ -44,9 +45,21 @@ const Home = () => {
     const [loading, setLoading] = useState("not-loaded");
     const [profile, setProfile] = useState({});
     const {authenticate, setUserData, user, isAuthenticated, logout} = useMoralis();
-    const { profileQueryId } = router.query;
 
     useEffect(() => {
+        (async () => {
+            const profileName = localStorage.getItem('profile_name');
+            if (profileName) {
+                let handles: string[] = [profileName];
+                let profileRequest = {
+                    handles: handles
+                }
+                const profileData = await profiles(profileRequest);
+                debugger;
+                setProfile(profileData);
+                setLoading("loaded");
+            }
+        })();
     }, [user]);
 
     // @ts-ignore

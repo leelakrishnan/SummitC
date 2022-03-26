@@ -107,13 +107,9 @@ function SignUp() {
             });
             console.log('create profile: poll until indexed');
             const result = await pollUntilIndexed(createProfileResult.data.createProfile.txHash);
-            console.log('create profile: profile has been indexed', result);
-            profile = await profiles(profileRequest);
         }
-        if (profile && profile.profiles && profile.profiles.items && profile.profiles.items.length > 0) {
-            localStorage.setItem("profileId", profile.profiles.items[0].id);
-            await router.push("/Home");
-        }
+        localStorage.setItem('profile_name', profileName);
+        await router.push("/Home");
         setLoading(false);
     }
     // @ts-ignore
