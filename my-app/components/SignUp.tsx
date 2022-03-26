@@ -111,7 +111,8 @@ function SignUp() {
             profile = await profiles(profileRequest);
         }
         if (profile && profile.profiles && profile.profiles.items && profile.profiles.items.length > 0) {
-            await router.push("/Home?profileId=" + profile.profiles.items[0].id);
+            localStorage.setItem("profileId", profile.profiles.items[0].id);
+            await router.push("/Home");
         }
         setLoading(false);
     }

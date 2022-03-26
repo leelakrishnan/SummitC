@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { Typography } from "@mui/material";
+import Nav from "../components/Nav";
 
 
 function TabPanel(props) {
@@ -51,6 +52,14 @@ const Home = () => {
     // @ts-ignore
     return (
         <>
+            <Head>
+                <title>Fly TV</title>
+                <meta name="description" content="Home for hackathon" />
+            </Head>
+            <main>
+                <Nav />
+                {/* <Footer /> */}
+            </main>
         </>
     );
 };
