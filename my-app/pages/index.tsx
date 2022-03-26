@@ -1,13 +1,13 @@
 import WalletConnectProvider from '@walletconnect/web3-provider'
-import { providers } from 'ethers'
+import { providers} from 'ethers'
 import Head from 'next/head'
-import { useCallback, useEffect, useReducer } from 'react'
+import {useCallback, useEffect, useReducer, useRef, useState} from 'react'
 import WalletLink from 'walletlink'
 import Web3Modal from 'web3modal'
-import { ellipseAddress, getChainData } from '../lib/utilities'
-
+import Signup from "../components/SignUp";
 const INFURA_ID = process.env.NEXT_PUBLIC_INFURA_ID;
-debugger
+import styles from "../styles/Home.module.css";
+
 const providerOptions = {
     walletconnect: {
         package: WalletConnectProvider, // required
@@ -110,8 +110,8 @@ function reducer(state: StateType, action: ActionType): StateType {
 }
 
 export const Home = (): JSX.Element => {
-    const [state, dispatch] = useReducer(reducer, initialState)
-    const { provider, web3Provider, address, chainId } = state
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const {provider, web3Provider} = state;
 
     const connect = useCallback(async function () {
         // This is the initial `provider` that is returned when
@@ -170,8 +170,6 @@ export const Home = (): JSX.Element => {
                     address: accounts[0],
                 })
             }
-
-            // https://docs.ethers.io/v5/concepts/best-practices/#best-practices--network-changes
             const handleChainChanged = (_hexChainId: string) => {
                 window.location.reload()
             }
@@ -197,83 +195,35 @@ export const Home = (): JSX.Element => {
         }
     }, [provider, disconnect])
 
-    const chainData = getChainData(chainId)
 
     return (
-        <div className="container">
+        <div>
             <Head>
-                <title>Create Next App</title>
-                <link rel="icon" href="/favicon.ico" />
+                <title>SummitC</title>
+                <meta name="description" content="Home of Hackathon"/>
+                <link rel="icon" href="/favicon.ico"/>
             </Head>
-
-            <header>
-            </header>
-
             <main>
-                {web3Provider ? (
-                    <button className="button" type="button" onClick={disconnect}>
-                        Disconnect
-                    </button>
-                ) : (
-                    <button className="button" type="button" onClick={connect}>
-                        Connect
-                    </button>
-                )}
+                <div className={styles.hero}>
+                    <div className={styles.header}>
+                        <h1>SummitC</h1>
+                        <p className={styles.about}>
+                            fill me. <br />
+                        </p>
+                    </div>
+                    {web3Provider ? (
+                        <>
+                            <Signup/>
+                        </>
+                    ) : !web3Provider ? (
+                        <>
+                            <button onClick={connect} className={styles.join}>
+                                Connect Wallet
+                            </button>
+                        </>
+                    ) : null}
+                </div>
             </main>
-
-            <style jsx>{`
-        main {
-          padding: 5rem 0;
-          text-align: center;
-        }
-
-        p {
-          margin-top: 0;
-        }
-
-        .container {
-          padding: 2rem;
-          margin: 0 auto;
-          max-width: 1200px;
-        }
-
-        .grid {
-          display: grid;
-          grid-template-columns: auto auto;
-          justify-content: space-between;
-        }
-
-        .button {
-          padding: 1rem 1.5rem;
-          background: ${web3Provider ? 'red' : 'green'};
-          border: none;
-          border-radius: 0.5rem;
-          color: #fff;
-          font-size: 1.2rem;
-        }
-
-        .mb-0 {
-          margin-bottom: 0;
-        }
-        .mb-1 {
-          margin-bottom: 0.25rem;
-        }
-      `}</style>
-
-            <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
         </div>
     )
 }
