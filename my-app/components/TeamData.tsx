@@ -5,7 +5,7 @@ import {BigNumber} from "ethers";
 import {whoCollectedEvent} from "../lib/whocollected";
 import styles from "../styles/Form.module.css";
 const { NFTStorage, Blob } = require('nft.storage');
-const client = new NFTStorage({ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweGY1RjViM2RGQzkwZmI1QzFhYTJENWU3NmYyNjIxMjQ3NDczZGRFMzYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY0NzU2MzU0MTIwNSwibmFtZSI6IkZMWVRWIn0._YJwr9LlQIDExbc0Kq8zDB4MvK-A5q2tok58iHufdQk'});
+const client = new NFTStorage({ token: process.env.NFT_STORAGE_CLIENT_ID});
 
 type Props = {
     eventDetail: any;
