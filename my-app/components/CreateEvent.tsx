@@ -6,10 +6,22 @@ import { useRouter } from "next/router";
 import {uploadIpfs} from "../lib/ipfs";
 import {v4 as uuidv4} from "uuid";
 import {createPostTypedData} from "../lib/create-post-typed-data";
+import Moralis from "moralis";
+import {ipfs_url_from_hash} from "./Profile";
+import { signedTypeData, getAddressFromSigner, splitSignature } from '../lib/ethers-service';
+import { lensHub } from '../lib/lens-hub';
+import { pollUntilIndexed } from '../lib/has-transaction-been-indexed';
+import { BigNumber, utils } from 'ethers';
+
 
 type Props = {
   profileData: any;
 };
+
+
+export function ipfs_url(ipfsCid: string) {
+  return "https://ipfs.io/" + ipfsCid;
+}
 
 const CreateEvent = ({ profileData }: Props) => {
   const [profileId, setProfileId] = useState("");
@@ -124,9 +136,9 @@ const CreateEvent = ({ profileData }: Props) => {
 
   const createEvent = async () => {
     const path = await uploadEventDataToIpfs();
-    const eventIPFS = "***Event" + path;
+    const eventIPFS = "#SummitCenter" + path;
     const cid = await uploadPostToIpfs(eventIPFS);
-    debugger;
+    
     const createPostRequest = {
       profileId,
       contentURI: 'ipfs://' + cid,
@@ -140,9 +152,96 @@ const CreateEvent = ({ profileData }: Props) => {
 
     const result = await createPostTypedData(createPostRequest);
     console.log('create post: createPostTypedData', result);
-    debugger;
+    const typedData = result.data.createPostTypedData.typedData;
+    console.log('create post: typedData', typedData);
+
+    const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
+    console.log('create post: signature', signature);
+
+    const { v, r, s } = splitSignature(signature);
+
+    const tx = await lensHub.postWithSig({
+      profileId: typedData.value.profileId,
+      contentURI: typedData.value.contentURI,
+      collectModule: typedData.value.collectModule,
+      collectModuleData: typedData.value.collectModuleData,
+      referenceModule: typedData.value.referenceModule,
+      referenceModuleData: typedData.value.referenceModuleData,
+      sig: {
+        v,
+        r,
+        s,
+        deadline: typedData.value.deadline,
+      },
+    });
+    console.log('create post: tx hash', tx.hash);
+
+    console.log('create post: poll until indexed');
+    const indexedResult = await pollUntilIndexed(tx.hash);
+
+    console.log('create post: profile has been indexed', result);
+
+    const logs = indexedResult.txReceipt.logs;
+    console.log('create post: logs', logs);
+    const topicId = utils.id(
+        'PostCreated(uint256,uint256,string,address,bytes,address,bytes,uint256)'
+    );
+    console.log('topicid we care about', topicId);
+    const profileCreatedLog = logs.find((l: any) => l.topics[0] === topicId);
+    console.log('create post: created log', profileCreatedLog);
+    let profileCreatedEventLog = profileCreatedLog.topics;
+    console.log('create post: created event logs', profileCreatedEventLog);
+    const publicationId = utils.defaultAbiCoder.decode(['uint256'], profileCreatedEventLog[2])[0];
+    console.log('create post: contract publication id', BigNumber.from(publicationId).toHexString());
+    console.log(
+        'create post: internal publication id',
+        profileId + '-' + BigNumber.from(publicationId).toHexString()
+    );
+    await createEventInDb(profileId + '-' + BigNumber.from(publicationId).toHexString(), path);
   }
 
+  async function createEventInDb(publicationId: string, path: string) {
+    let contentUri = "";
+    if (path) {
+      const events = Moralis.Object.extend("Events");
+      const query = new Moralis.Query(events);
+      query.limit(200);
+      query
+          .find()
+          .then(function (results: any) {
+            if (results != null && results.length > 0) {
+              debugger;
+              let  eventDetails = results[0].get("eventDetails");
+              let ipfsEventDetail = ipfs_url_from_hash(path);
+              let eventDetailObj = {
+                publicationId,
+                ipfsEventDetail
+              }
+              eventDetails.push(eventDetailObj);
+              const events = Moralis.Object.extend("Events");
+              const eventsObj = new events();
+              eventsObj.set("id", results[0].id);
+              eventsObj.set("eventDetails", eventDetails);
+              eventsObj.save();
+            } else {
+              debugger;
+              let eventDetails = [];
+              let ipfsEventDetail = ipfs_url_from_hash(path);
+              let eventDetailObj = {
+                publicationId,
+                ipfsEventDetail
+              }
+              eventDetails.push(eventDetailObj);
+              const events = Moralis.Object.extend("Events");
+              const eventsObj = new events();
+              eventsObj.set("eventDetails", eventDetails);
+              eventsObj.save();
+            }
+          })
+          .catch(function (error) {
+          });
+    }
+  }
   // @ts-ignore
   return (
     <>

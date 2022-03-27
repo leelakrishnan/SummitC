@@ -9,10 +9,10 @@ import Tab from "@mui/material/Tab";
 import { Typography } from "@mui/material";
 import Nav from "../components/Nav";
 import {profiles} from "../lib/get-profile-typed-data";
-import Profile from "../components/Profile";
-import CreateEvent from "../components/CreateEvent";
-import CreatePost from "../components/CreatePost";
-import {BigNumber} from "ethers";
+import ViewPost from "../components/ViewPost";
+import ViewEvent from "../components/ViewEvent";
+import SearchEventCollectors from "../components/SearchEventCollectors";
+import TeamData from "../components/TeamData";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -41,37 +41,19 @@ function a11yProps(index: any) {
         "aria-controls": `simple-tabpanel-${index}`,
     };
 }
-const Home = () => {
+const Explore = () => {
     const router = useRouter();
-    const [profileId, setProfileId] = useState("");
     const [loading, setLoading] = useState("not-loaded");
     const [profileData, setProfileData] = useState({});
-    const {authenticate, setUserData, user, isAuthenticated, logout} = useMoralis();
+    const { user} = useMoralis();
     const [value, setValue] = useState(0);
-
+    const [eventDetails, setEventDetails] = useState({});
+    const { eventId } = router.query;
     useEffect(() => {
-        (async () => {
-            const profileName = localStorage.getItem('profile_name');
-            debugger;
-            if (profileName) {
-                let handles: string[] = [profileName];
-                let profileRequest = {
-                    handles: handles
-                }
-                const profileDataRes = await profiles(profileRequest);
-                
-                if (profileDataRes && profileDataRes.profiles && profileDataRes.profiles.items
-                    && profileDataRes.profiles.items.length > 0) {
-                   const profileData =  profileDataRes.profiles.items[0];
-                   if (profileData) {
-                       debugger;
-                       localStorage.setItem('profile_id', BigNumber.from(profileData.id).toHexString());
-                       setProfileData(profileData);
-                   }
-                }
-                setLoading("loaded");
-            }
-        })();
+            setLoading("not-loaded");
+            const eventDetailsLS = localStorage.getItem('event-' + eventId);
+            setEventDetails(JSON.parse(eventDetailsLS));
+        setLoading("loaded");
     }, [user]);
 
 
@@ -95,18 +77,18 @@ const Home = () => {
                     loading === "loaded" && (
                         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                             <Tabs value={value} onChange={handleChange} aria-label="Home">
-                                <Tab label="Profile" {...a11yProps(0)} />
-                                <Tab label="Create Event" {...a11yProps(1)} />
-                                <Tab label="Create Post" {...a11yProps(2)} />
+                                <Tab label="View Event" {...a11yProps(0)} />
+                                <Tab label="Search Event Collectors" {...a11yProps(1)} />
+                                <Tab label="Upload Team Data" {...a11yProps(2)} />
                             </Tabs>
                             <TabPanel value={value} index={0}>
-                                <Profile profileData={profileData} />
+                                <ViewEvent eventDetail={ eventDetails} />
                             </TabPanel>
                             <TabPanel value={value} index={1}>
-                                <CreateEvent profileData={profileData} />
+                                <SearchEventCollectors eventDetail={eventDetails} />
                             </TabPanel>
                             <TabPanel value={value} index={2}>
-                                <CreatePost profileData={profileData} />
+                                <TeamData/>
                             </TabPanel>
                         </Box>
                     )
@@ -117,4 +99,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Explore;

@@ -9,7 +9,7 @@ import Tab from "@mui/material/Tab";
 import { Typography } from "@mui/material";
 import Nav from "../components/Nav";
 import {profiles} from "../lib/get-profile-typed-data";
-import ViewEvent from "../components/ViewEvent";
+import ExploreEvent from "../components/ExploreEvent";
 import ViewPost from "../components/ViewPost";
 
 function TabPanel(props) {
@@ -94,7 +94,7 @@ const Explore = () => {
                                 <Tab label="Post" {...a11yProps(1)} />
                             </Tabs>
                             <TabPanel value={value} index={0}>
-                                <ViewEvent profileData={ profileData} />
+                                <ExploreEvent profileData={ profileData} />
                             </TabPanel>
                             <TabPanel value={value} index={1}>
                                 <ViewPost profileData={profileData} />

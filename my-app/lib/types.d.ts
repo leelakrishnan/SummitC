@@ -760,6 +760,7 @@ export type ExplorePublicationRequest = {
   cursor?: InputMaybe<Scalars['Cursor']>
   limit?: InputMaybe<Scalars['LimitScalar']>
   sortCriteria: PublicationSortCriteria
+  publicationTypes?: InputMaybe<Array<PublicationTypes>>
   /** The App Id */
   sources?: InputMaybe<Array<Scalars['Sources']>>
   timestamp?: InputMaybe<Scalars['TimestampScalar']>

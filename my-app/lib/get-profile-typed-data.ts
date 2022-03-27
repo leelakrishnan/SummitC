@@ -103,7 +103,7 @@ export const profiles = async (request?: ProfilesRequest) => {
     // only showing one example to query but you can see from request
     // above you can query many
     const profilesFromProfileIds = await getProfilesRequest(request);
-
+    debugger;
     prettyJSON('profiles: result', profilesFromProfileIds.data);
 
     return profilesFromProfileIds.data;

@@ -108,7 +108,7 @@ const CreatePost = ({ profileData }: Props) => {
   const createPost = async () => {
     const path = await uploadPostDataToIpfs();
     const cid = await uploadPostToIpfs(path);
-    debugger;
+    
     const createPostRequest = {
       profileId,
       contentURI: 'ipfs://' + cid,
