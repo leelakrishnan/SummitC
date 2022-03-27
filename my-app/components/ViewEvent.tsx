@@ -27,6 +27,11 @@ const ViewEvent = ({ eventDetail }: Props) => {
         fontFamily: "Press Start 2P",
     };
 
+
+    const commentContainer = {
+
+    };
+
     const {user} = useMoralis();
     useEffect(() => {
 
@@ -54,11 +59,12 @@ const ViewEvent = ({ eventDetail }: Props) => {
             <br />
             <div className={styles.container2} style={{ height: "500px" }}>
                 <div className={styles.container3}>
-                    <Iframe id="youtube-player-2" frameBorder="0" allowFullScreen="1"
+                    <div><Iframe id="youtube-player-2" frameBorder="0" allowFullScreen="1"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             title="YouTube video player" width="940" height="560"
                             src={eventDetail.eventLink}></Iframe>
-                    <button
+                    </div>
+                    <div> <button
                         className={styles.teamjoin}
                         onClick={(e) => {
                             joinTheEvent(e);
@@ -66,39 +72,32 @@ const ViewEvent = ({ eventDetail }: Props) => {
                     >
                        Join The Event
                     </button>
-                </div>
-                <div className={styles.container3}>
-                <form className={styles.form}>
-                    <div className={styles.formGroups}>
-                        <label htmlFor="name">Comment</label>
-                        <input
-                            type="text"
-                            value={comment}
-                            name={"comment"}
-                            placeholder="Enter Comment"
-                        />
+                    <div>
+                        <br />
+                        <br/>
+                    <label htmlFor="name">Comment</label>
+
+                        <br />
+                    <input
+                        type="textarea"
+                        value={comment}
+                        name={"comment"}
+                        placeholder="Enter Comment"
+                        rows="200" cols="20"
+                    />
                     </div>
-                    {!loading ? (
-                        <>
+
+                    <div>
+                        <br />
                         <div className={styles.formGroups}>
-                            <button onClick={handleSubmit} className={styles.submit}>
+                            <button onClick={handleSubmit} className={styles.teamjoin}>
                                 Submit
                             </button>
                         </div>
-                        <div className={styles.formGroups}>
-                            <button onClick={handleSubmit} className={styles.submit}>
-                                Submit
-                            </button>
-                        </div>
-                        </>
-                    ) : (
-                        <div className="loader-center">
-                            <div className="loader"></div>
-                        </div>
-                    )}
-                </form>
-            </div>
+                    </div>
+                    </div>
                 </div>
+            </div>
         </>
     );
 };
