@@ -9,8 +9,9 @@ import Tab from "@mui/material/Tab";
 import { Typography } from "@mui/material";
 import Nav from "../components/Nav";
 import {profiles} from "../lib/get-profile-typed-data";
-import ExploreEvent from "../components/ExploreEvent";
 import ViewPost from "../components/ViewPost";
+import ViewEvent from "../components/ViewEvent";
+import SearchEventCollectors from "../components/SearchEventCollectors";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -41,32 +42,17 @@ function a11yProps(index: any) {
 }
 const Explore = () => {
     const router = useRouter();
-    const [profileId, setProfileId] = useState("");
     const [loading, setLoading] = useState("not-loaded");
     const [profileData, setProfileData] = useState({});
-    const {authenticate, setUserData, user, isAuthenticated, logout} = useMoralis();
+    const { user} = useMoralis();
     const [value, setValue] = useState(0);
-
+    const [eventDetails, setEventDetails] = useState({});
+    const { eventId } = router.query;
     useEffect(() => {
-        (async () => {
-            const profileName = localStorage.getItem('profile_name');
-            if (profileName) {
-                let handles: string[] = [profileName];
-                let profileRequest = {
-                    handles: handles
-                }
-                const profileDataRes = await profiles(profileRequest);
-
-                if (profileDataRes && profileDataRes.profiles && profileDataRes.profiles.items
-                    && profileDataRes.profiles.items.length > 0) {
-                    const profileData =  profileDataRes.profiles.items[0];
-                    if (profileData) {
-                        setProfileData(profileData);
-                    }
-                }
-                setLoading("loaded");
-            }
-        })();
+            setLoading("not-loaded");
+            const eventDetailsLS = localStorage.getItem('event-' + eventId);
+            setEventDetails(JSON.parse(eventDetailsLS));
+        setLoading("loaded");
     }, [user]);
 
 
@@ -90,14 +76,14 @@ const Explore = () => {
                     loading === "loaded" && (
                         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                             <Tabs value={value} onChange={handleChange} aria-label="Home">
-                                <Tab label="Events" {...a11yProps(0)} />
-                                <Tab label="Post" {...a11yProps(1)} />
+                                <Tab label="View Event" {...a11yProps(0)} />
+                                <Tab label="Search Event Collectors" {...a11yProps(1)} />
                             </Tabs>
                             <TabPanel value={value} index={0}>
-                                <ExploreEvent profileData={ profileData} />
+                                <ViewEvent eventDetail={ eventDetails} />
                             </TabPanel>
                             <TabPanel value={value} index={1}>
-                                <ViewPost profileData={profileData} />
+                                <SearchEventCollectors eventDetail={eventDetails} />
                             </TabPanel>
                         </Box>
                     )

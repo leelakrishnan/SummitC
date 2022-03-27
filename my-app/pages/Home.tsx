@@ -12,6 +12,7 @@ import {profiles} from "../lib/get-profile-typed-data";
 import Profile from "../components/Profile";
 import CreateEvent from "../components/CreateEvent";
 import CreatePost from "../components/CreatePost";
+import {BigNumber} from "ethers";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -62,6 +63,8 @@ const Home = () => {
                     && profileDataRes.profiles.items.length > 0) {
                    const profileData =  profileDataRes.profiles.items[0];
                    if (profileData) {
+                       debugger;
+                       localStorage.setItem('profile_id', BigNumber.from(profileData.id).toHexString());
                        setProfileData(profileData);
                    }
                 }

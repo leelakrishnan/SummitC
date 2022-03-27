@@ -1,4 +1,4 @@
-import { ethers } from 'ethers';
+import {BigNumber, ethers, utils} from 'ethers';
 import { gql } from '@apollo/client'
 import {useEffect, useState} from 'react'
 import {  GET_CHALLENGE, AUTHENTICATION } from '../lens-mutation/profile'
@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { pollUntilIndexed } from '../lib/has-transaction-been-indexed';
 import {createProfileRequest} from "../lib/create-profile";
 import styles from "../styles/Form.module.css";
+import {prettyJSON} from "../lib/helpers";
 
 function SignUp() {
     const router = useRouter();
@@ -105,10 +106,33 @@ function SignUp() {
             const createProfileResult = await createProfileRequest({
                 handle: profileName,
             });
+            prettyJSON('create profile: result', createProfileResult.data);
+
             console.log('create profile: poll until indexed');
             const result = await pollUntilIndexed(createProfileResult.data.createProfile.txHash);
-        }
 
+            console.log('create profile: profile has been indexed', result);
+
+            const logs = result.txReceipt.logs;
+
+            console.log('create profile: logs', logs);
+
+            const topicId = utils.id(
+                'ProfileCreated(uint256,address,address,string,string,address,bytes,string,uint256)'
+            );
+            console.log('topicid we care about', topicId);
+
+            const profileCreatedLog = logs.find((l: any) => l.topics[0] === topicId);
+            console.log('profile created log', profileCreatedLog);
+
+            let profileCreatedEventLog = profileCreatedLog.topics;
+            console.log('profile created event logs', profileCreatedEventLog);
+
+            const profileId = utils.defaultAbiCoder.decode(['uint256'], profileCreatedEventLog[1])[0];
+
+            console.log('profile id', BigNumber.from(profileId).toHexString());
+            localStorage.setItem('profile_id', BigNumber.from(profileId).toHexString());
+        }
         localStorage.setItem('profile_name', profileName);
         await router.push("/Home");
         setLoading(false);

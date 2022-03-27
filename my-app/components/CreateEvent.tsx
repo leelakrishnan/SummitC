@@ -197,7 +197,7 @@ const CreateEvent = ({ profileData }: Props) => {
         'create post: internal publication id',
         profileId + '-' + BigNumber.from(publicationId).toHexString()
     );
-    await createEventInDb(BigNumber.from(publicationId).toHexString(), path);
+    await createEventInDb(profileId + '-' + BigNumber.from(publicationId).toHexString(), path);
   }
 
   async function createEventInDb(publicationId: string, path: string) {
