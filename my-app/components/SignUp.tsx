@@ -108,6 +108,7 @@ function SignUp() {
             console.log('create profile: poll until indexed');
             const result = await pollUntilIndexed(createProfileResult.data.createProfile.txHash);
         }
+
         localStorage.setItem('profile_name', profileName);
         await router.push("/Home");
         setLoading(false);
