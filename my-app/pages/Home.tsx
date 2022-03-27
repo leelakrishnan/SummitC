@@ -52,6 +52,7 @@ const Home = () => {
     useEffect(() => {
         (async () => {
             const profileName = localStorage.getItem('profile_name');
+            debugger;
             if (profileName) {
                 let handles: string[] = [profileName];
                 let profileRequest = {

@@ -132,6 +132,10 @@ function SignUp() {
 
             console.log('profile id', BigNumber.from(profileId).toHexString());
             localStorage.setItem('profile_id', BigNumber.from(profileId).toHexString());
+
+            profile = await profiles(profileRequest);
+
+            debugger;
         }
         localStorage.setItem('profile_name', profileName);
         await router.push("/Home");
