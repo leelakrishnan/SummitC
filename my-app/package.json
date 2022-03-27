@@ -47,7 +47,8 @@
     "walletlink": "^2.2.6",
     "web3modal": "^1.9.4",
     "web3": "^1.7.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "nft.storage": "^6.0.2"
   },
   "devDependencies": {
     "@types/react": "^17.0.43",

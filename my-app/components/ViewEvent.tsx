@@ -7,6 +7,8 @@ import styles from "../styles/Home.module.css";
 import {collect} from "../lib/collect";
 import {follow} from "../lib/follow";
 import {BigNumber, providers, Contract, utils} from "ethers";
+import {updateProfileRequest} from "../lib/update-profile";
+import {toast} from "react-toastify";
 
 type Props = {
     eventDetail: any;
@@ -14,6 +16,8 @@ type Props = {
 
 const ViewEvent = ({ eventDetail }: Props) => {
 
+    const [loading, setLoading] = useState(false);
+    const [comment, setComment] = useState("");
 
     const postTitle = {
         textAlign: "center",
@@ -28,7 +32,10 @@ const ViewEvent = ({ eventDetail }: Props) => {
 
     }, [user]);
 
-
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        setLoading(false);
+    }
 
    async function joinTheEvent(e) {
        debugger;
@@ -60,7 +67,38 @@ const ViewEvent = ({ eventDetail }: Props) => {
                        Join The Event
                     </button>
                 </div>
+                <div className={styles.container3}>
+                <form className={styles.form}>
+                    <div className={styles.formGroups}>
+                        <label htmlFor="name">Comment</label>
+                        <input
+                            type="text"
+                            value={comment}
+                            name={"comment"}
+                            placeholder="Enter Comment"
+                        />
+                    </div>
+                    {!loading ? (
+                        <>
+                        <div className={styles.formGroups}>
+                            <button onClick={handleSubmit} className={styles.submit}>
+                                Submit
+                            </button>
+                        </div>
+                        <div className={styles.formGroups}>
+                            <button onClick={handleSubmit} className={styles.submit}>
+                                Submit
+                            </button>
+                        </div>
+                        </>
+                    ) : (
+                        <div className="loader-center">
+                            <div className="loader"></div>
+                        </div>
+                    )}
+                </form>
             </div>
+                </div>
         </>
     );
 };

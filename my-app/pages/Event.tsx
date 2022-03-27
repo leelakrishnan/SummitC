@@ -12,6 +12,7 @@ import {profiles} from "../lib/get-profile-typed-data";
 import ViewPost from "../components/ViewPost";
 import ViewEvent from "../components/ViewEvent";
 import SearchEventCollectors from "../components/SearchEventCollectors";
+import TeamData from "../components/TeamData";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -78,12 +79,16 @@ const Explore = () => {
                             <Tabs value={value} onChange={handleChange} aria-label="Home">
                                 <Tab label="View Event" {...a11yProps(0)} />
                                 <Tab label="Search Event Collectors" {...a11yProps(1)} />
+                                <Tab label="Upload Team Data" {...a11yProps(2)} />
                             </Tabs>
                             <TabPanel value={value} index={0}>
                                 <ViewEvent eventDetail={ eventDetails} />
                             </TabPanel>
                             <TabPanel value={value} index={1}>
                                 <SearchEventCollectors eventDetail={eventDetails} />
+                            </TabPanel>
+                            <TabPanel value={value} index={2}>
+                                <TeamData/>
                             </TabPanel>
                         </Box>
                     )

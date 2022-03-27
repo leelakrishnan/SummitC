@@ -31,8 +31,6 @@ const SearchEventCollectors = ({ eventDetail }: Props) => {
                 debugger;
                 const result = await whoCollectedEvent(request);
 
-                debugger;
-
             }
         })();
     }, [user]);
