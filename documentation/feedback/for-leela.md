@@ -1,8 +1,9 @@
 ## somewhat hidden documentation points:
 > Leela -3 point for documentation.
-    1. No readme in intial main
-    2. no feedback or edits to initial documentation by tippi
-    3. no additional comments and missing .env information
+
+1. No readme in intial main
+1. no feedback or edits to initial documentation by tippi
+1. no additional comments and missing .env information
 
 
 # questions:
